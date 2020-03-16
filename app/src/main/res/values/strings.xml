@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">MyStore</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="add_def_item">Add Default Item</string>
+    <string name="delete_all">Delete all</string>
+    <string name="itemname">ItemName</string>
+    <string name="_123">$123</string>
+    <string name="supplier">supplier</string>
+    <string name="quantity_left_23">Quantity left: 23</string>
+    <string name="save">Save</string>
+    <string name="item_name">Item Name</string>
+    <string name="supplier_text">Supplier</string>
+    <string name="price">Price in USD</string>
+    <string name="available_quantity">Available Quantity</string>
+    <string name="add_image">Add Image</string>
+</resources>
