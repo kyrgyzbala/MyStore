@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), ItemsAdapter.OnItemClickListenerN {
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
         mainViewModel.getAllItems().observe(this, Observer {
-            adapter.setItems(it)
+            adapter.submitList(it)
         })
 
         fab.setOnClickListener {
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity(), ItemsAdapter.OnItemClickListenerN {
                     }
                 dialogBuilder.setNegativeButton("CANCEL") { _, _ ->
                     Toast.makeText(this@MainActivity, "Cancelled", Toast.LENGTH_SHORT).show()
-                    adapter.notifyItemCh()
+                    adapter.notifyDataSetChanged()
                 }
                 val alert = dialogBuilder.create()
                 alert.setTitle("CAUTION:")
