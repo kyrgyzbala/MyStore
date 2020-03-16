@@ -2,26 +2,36 @@ package com.example.mystore.adapter
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mystore.EditorActivity
 import com.example.mystore.R
 import com.example.mystore.data.Item
 import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 
-class ItemsAdapter(private var listener: OnItemClickListenerN?) : RecyclerView.Adapter<ItemsAdapter.MyViewHolder>() {
+class ItemsAdapter(private var listener: OnItemClickListenerN?) :
+    androidx.recyclerview.widget.ListAdapter<Item, ItemsAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
-    private var allItems: List<Item> = emptyList()
+    companion object {
+        private val DIFF_CALLBACK = object : ItemCallback<Item>() {
+            override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+                return oldItem.id == newItem.id
+            }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+            override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+                return oldItem.itemName == newItem.itemName && oldItem.itemPrice == newItem.itemPrice && oldItem.supplier == newItem.supplier
+            }
+
+        }
+    }
+
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
         val textViewItemName: TextView = itemView.findViewById<TextView>(R.id.textViewItemName)
         val textViewItemSuplier = itemView.findViewById<TextView>(R.id.textViewItemSupplier)
@@ -29,6 +39,7 @@ class ItemsAdapter(private var listener: OnItemClickListenerN?) : RecyclerView.A
         val textViewItemQuantity = itemView.findViewById<TextView>(R.id.textViewItemQuantity)
 
         val mLayout = itemView.findViewById<CardView>(R.id.list_items)
+
         init {
             mLayout.setOnClickListener(this)
         }
@@ -46,25 +57,13 @@ class ItemsAdapter(private var listener: OnItemClickListenerN?) : RecyclerView.A
         )
     }
 
-    fun setItems(items: List<Item>) {
-        allItems = items
-        notifyDataSetChanged()
-    }
-
-    fun notifyItemCh(){
-        notifyDataSetChanged()
-    }
-
-    override fun getItemCount(): Int {
-        return allItems.size
-    }
 
     fun getItemAt(position: Int): Item {
-        return allItems[position]
+        return getItem(position)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val currentItem = allItems[position]
+        val currentItem = getItem(position)
 
         holder.textViewItemName.text = currentItem.itemName
         holder.textViewItemSuplier.text = currentItem.supplier
@@ -79,6 +78,7 @@ class ItemsAdapter(private var listener: OnItemClickListenerN?) : RecyclerView.A
         val imgStream = ByteArrayInputStream(img)
         return BitmapFactory.decodeStream(imgStream)
     }
+
     interface OnItemClickListenerN {
         fun onItemClick(position: Int)
     }
