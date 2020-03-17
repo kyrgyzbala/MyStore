@@ -33,10 +33,10 @@ class ItemsAdapter(private var listener: OnItemClickListenerN?) :
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
-        val textViewItemName: TextView = itemView.findViewById<TextView>(R.id.textViewItemName)
-        val textViewItemSuplier = itemView.findViewById<TextView>(R.id.textViewItemSupplier)
-        val textViewItemPrice = itemView.findViewById<TextView>(R.id.textViewPrice)
-        val textViewItemQuantity = itemView.findViewById<TextView>(R.id.textViewItemQuantity)
+        val textViewItemName: TextView = itemView.findViewById(R.id.textViewItemName)
+        val textViewItemSupplier: TextView = itemView.findViewById(R.id.textViewItemSupplier)
+        val textViewItemPrice: TextView = itemView.findViewById(R.id.textViewPrice)
+        val textViewItemQuantity: TextView = itemView.findViewById(R.id.textViewItemQuantity)
 
         val mLayout = itemView.findViewById<CardView>(R.id.list_items)
 
@@ -66,7 +66,7 @@ class ItemsAdapter(private var listener: OnItemClickListenerN?) :
         val currentItem = getItem(position)
 
         holder.textViewItemName.text = currentItem.itemName
-        holder.textViewItemSuplier.text = currentItem.supplier
+        holder.textViewItemSupplier.text = currentItem.supplier
         holder.textViewItemPrice.text = currentItem.itemPrice.toString()
         holder.textViewItemQuantity.text = currentItem.itemAvQuantity.toString()
 

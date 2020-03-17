@@ -91,31 +91,9 @@ class MainActivity : AppCompatActivity(), ItemsAdapter.OnItemClickListenerN {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_ADD && resultCode == Activity.RESULT_OK) {
-            val itemName = data!!.getStringExtra(EditorActivity1.EXTRA_NAME) as String
-            val itemSupplier = data.getStringExtra(EditorActivity1.EXTRA_SUPPLIER) as String
-            val itemPrice = data.getIntExtra(EditorActivity1.EXTRA_PRICE, 12)
-            val itemQuantity = data.getIntExtra(EditorActivity1.EXTRA_QUANTITY, 1)
-            val image: ByteArray = data.getByteArrayExtra(EditorActivity.EXTRA_IMAGE)!!
-
-            val newItem = Item(itemName, itemPrice, itemQuantity, itemSupplier, image)
-            mainViewModel.insert(newItem)
+            Toast.makeText(this, "New item has been added", Toast.LENGTH_SHORT).show()
         } else if (requestCode == REQUEST_EDIT && resultCode == Activity.RESULT_OK) {
-
-            val id = data!!.getIntExtra(EditorActivity.EXTRA_ID, 1)
-            if (id == -1) {
-                Toast.makeText(this, "Cannot uPDate!", Toast.LENGTH_LONG).show()
-                return
-            }
-
-            val itemName = data.getStringExtra(EditorActivity1.EXTRA_NAME) as String
-            val itemSupplier = data.getStringExtra(EditorActivity1.EXTRA_SUPPLIER) as String
-            val itemPrice = data.getIntExtra(EditorActivity1.EXTRA_PRICE, 12)
-            val itemQuantity = data.getIntExtra(EditorActivity1.EXTRA_QUANTITY, 1)
-            val image: ByteArray = data.getByteArrayExtra(EditorActivity.EXTRA_IMAGE)!!
-
-            val newItem = Item(itemName, itemPrice, itemQuantity, itemSupplier, image)
-            newItem.id = id
-            mainViewModel.update(newItem)
+            Toast.makeText(this, "Item has been Updated", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -164,12 +142,8 @@ class MainActivity : AppCompatActivity(), ItemsAdapter.OnItemClickListenerN {
         mainViewModel.getAllItems().observe(this, Observer {
             intent.apply {
                 Log.d("NUR", "Obersver")
-                putExtra(EditorActivity1.EXTRA_NAME, it[position].itemName)
-                putExtra(EditorActivity.EXTRA_SUPPLIER, it[position].supplier)
-                putExtra(EditorActivity.EXTRA_PRICE, it[position].itemPrice)
-                putExtra(EditorActivity.EXTRA_QUANTITY, it[position].itemAvQuantity)
                 putExtra(EditorActivity.EXTRA_ID, it[position].id)
-                putExtra(EditorActivity.EXTRA_IMAGE, it[position].image)
+                putExtra(EditorActivity.EXTRA_ITEM, it[position])
             }
             Log.d("NUR", "One more starts")
         })

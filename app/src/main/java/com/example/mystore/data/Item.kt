@@ -2,7 +2,7 @@ package com.example.mystore.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Blob
+import java.io.Serializable
 
 @Entity(tableName = "items_table")
 data class Item(
@@ -11,7 +11,8 @@ data class Item(
     var itemAvQuantity: Int,
     var supplier: String,
     var image: ByteArray
-) {
+) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
+
 }
